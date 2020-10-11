@@ -13,7 +13,7 @@ variable pk_filepath {
 variable ec2_provisioner_script {
   type = string
   description = "path of script to provision at the end of ec2 creation"
-  default = "deploy_nginx.sh"
+  default = "./scripts/deploy_nginx.sh"
 }
 
 variable ec2_instance_type {
@@ -25,7 +25,7 @@ variable ec2_instance_type {
 variable ebs_provisioner_script {
   type = string
   description = "path of script to provision at the end of ebs creation"
-  default = "mount_ebs.sh"
+  default = "./scripts/mount_ebs.sh"
 }
 
 variable additional_ebs_size {
