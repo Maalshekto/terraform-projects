@@ -19,6 +19,11 @@ variable public_ip {
   description = "public_ip"
 }
 
+variable pk_filepath {
+  type = string
+  description = "path of the private key corresponding to the keys pair created on aws"
+}
+
 variable provisioner_script {
   type = string
   description = "script to provision on remote ec2 instance"
