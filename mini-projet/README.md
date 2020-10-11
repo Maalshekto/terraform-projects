@@ -8,4 +8,6 @@ The scripts deploy :
 
 It is assumed that you have provided AWS credentials using "**aws configure**".
 
-Before using it, you should customize the app/variables.tf in order to make it work.
+There is 2 files to customize before using :
+**app/variables** : mainly **aws_kp_name** & **pk_filepath** (Other values can be leave as default if wanted)
+**app/main.tf** : The terraform backend in S3 can be removed (keep it locally) or modify to reflect your own S3 bucket.
