@@ -16,7 +16,7 @@ resource "aws_volume_attachment" "ebs_att" {
         type = "ssh"
         agent = false
         user = "ubuntu"
-        private_key = file("./devops-thomas.pem")
+        private_key = file(var.pk_filepath)
         host = var.public_ip
       }
   }
