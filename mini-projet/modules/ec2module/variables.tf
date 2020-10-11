@@ -12,6 +12,16 @@ variable aws_common_tag {
   }
 }
 
+variable aws_kp_name {
+  type = string
+  description = "name of keys pairs created on aws"
+}
+
+variable pk_filepath {
+  type = string
+  description = "path of the private key corresponding to the keys pair created on aws"
+}
+
 variable sg_name {
   type = string
   description = "security group name"
