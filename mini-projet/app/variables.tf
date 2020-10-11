@@ -1,13 +1,13 @@
 variable aws_kp_name {
   type = string
   description = "name of keys pairs created on aws"
-  default = "devops-thomas"
+  default = "YOUR_AWS_KEYS_PAIR_NAME"
 }
 
 variable pk_filepath {
   type = string
   description = "path of the private key corresponding to the keys pair created on aws"
-  default = "./devops-thomas.pem"
+  default = "PATH/OF/YOUR/PRIVATE/KEY.pem"
 }
 
 variable ec2_provisioner_script {
