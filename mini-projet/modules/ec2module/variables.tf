@@ -28,6 +28,16 @@ variable sg_name {
   default = "default-sg"
 }
 
+variable sg_id {
+  type = string
+  description = "security group name"
+}
+
+variable subnet_id {
+  type = string
+  description = "subnet id on aws network"
+}
+
 variable provisioner_script {
   type = string
   description = "script to provision on remote ec2 instance"

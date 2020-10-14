@@ -10,6 +10,11 @@ variable sg_name {
   default = "thomas-sg"
 }
 
+variable vpc_id {
+  type = string
+  description = "VPC ID"
+}
+
 variable aws_common_tag {
   type = map
   description = "Set aws tag"

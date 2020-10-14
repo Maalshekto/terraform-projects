@@ -12,6 +12,7 @@ resource "aws_instance" "myec2" {
   ami           = data.aws_ami.app_ami.id
   instance_type = var.instancetype
   key_name      = var.aws_kp_name
+  subnet_id = var.subnet_id
 
   provisioner "remote-exec" { 
       script = var.provisioner_script
@@ -29,6 +30,6 @@ resource "aws_instance" "myec2" {
     delete_on_termination = true
   }
   
-  security_groups = [var.sg_name]
+  security_groups = [var.sg_id]
   tags = var.aws_common_tag
 }

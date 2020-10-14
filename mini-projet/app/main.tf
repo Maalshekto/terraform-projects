@@ -1,19 +1,31 @@
 provider "aws" {
-  region     = "us-east-2"
+  region = "eu-west-3"
 }
 
 terraform {
   backend "s3" {
-    bucket = "terraform-backend-thomas"
+    bucket = "terraform-state.dev.bnptraining-v1"
     key = "miniprojet.tfstate"
-    region     = "us-east-2"
+    region = "eu-west-3"
   }
+}
+
+module "vpc" {
+  source = "terraform-aws-modules/vpc/aws"
+
+  name = var.vpc_name
+  cidr = var.vpc_cidr
+  azs             = [var.vpc_azs]
+  public_subnets  = [var.vpc_subnet]
+  enable_nat_gateway = true
+  enable_vpn_gateway = true
+  tags = var.vpc_tag
 }
 
 module "ec2" {
     source = "../modules/ec2module"
-
-    sg_name = module.securitygroup.name
+    subnet_id = module.vpc.public_subnets[0]
+    sg_id = module.securitygroup.id
     aws_kp_name = var.aws_kp_name
     pk_filepath = var.pk_filepath
     provisioner_script = var.ec2_provisioner_script
@@ -23,7 +35,7 @@ module "ec2" {
 
 module "securitygroup" {
     source = "../modules/securitygroupmodule"
-
+    vpc_id = module.vpc.vpc_id
     sg_name = var.security_group_name
 }
 

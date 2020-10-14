@@ -1,3 +1,39 @@
+# VPC Configurations : 
+variable vpc_azs {
+  type = string
+  description = "name of selected azs for VPC"
+  default = "eu-west-3a"
+}
+
+variable vpc_name {
+  type = string
+  description = "name of VPC"
+  default = "bnptraining-vpc"
+}
+
+variable vpc_cidr {
+  type = string
+  description = "cidr of VPC"
+  default = "10.2.0.0/16"
+}
+
+variable vpc_subnet {
+  type = string
+  description = "subnet of VPC"
+  default = "10.2.1.0/24"
+}
+
+variable vpc_tag {
+  type = map
+  description = "Set vpc tag"
+  default = {
+    Terraform = "true"
+    Environment = "dev"
+  }
+}
+ 
+# Other configurations :
+
 variable aws_kp_name {
   type = string
   description = "name of keys pairs created on aws"
