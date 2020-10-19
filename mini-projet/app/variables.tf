@@ -1,8 +1,8 @@
 # VPC Configurations : 
 variable vpc_azs {
-  type = string
+  type = list
   description = "name of selected azs for VPC"
-  default = "eu-west-3a"
+  default = [ "eu-west-3a", "eu-west-3b", "eu-west-3c" ]
 }
 
 variable vpc_name {
@@ -17,10 +17,16 @@ variable vpc_cidr {
   default = "10.2.0.0/16"
 }
 
-variable vpc_subnet {
-  type = string
+variable vpc_public_subnet {
+  type = list
   description = "subnet of VPC"
-  default = "10.2.1.0/24"
+  default = [ "10.2.128.0/20", "10.2.144.0/20", "10.2.160.0/20" ]
+}
+
+variable vpc_private_subnet {
+  type = list
+  description = "subnet of VPC"
+  default = [ "10.2.0.0/19", "10.2.32.0/19", "10.2.64.0/19" ]
 }
 
 variable vpc_tag {
@@ -37,13 +43,13 @@ variable vpc_tag {
 variable aws_kp_name {
   type = string
   description = "name of keys pairs created on aws"
-  default = "YOUR_AWS_KEYS_PAIR_NAME"
+  default = "bnptraining-thomas"
 }
 
 variable pk_filepath {
   type = string
   description = "path of the private key corresponding to the keys pair created on aws"
-  default = "PATH/OF/YOUR/PRIVATE/KEY.pem"
+  default = "./bnptraining-thomas.pem"
 }
 
 variable ec2_provisioner_script {

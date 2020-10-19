@@ -15,8 +15,9 @@ module "vpc" {
 
   name = var.vpc_name
   cidr = var.vpc_cidr
-  azs             = [var.vpc_azs]
-  public_subnets  = [var.vpc_subnet]
+  azs             = var.vpc_azs
+  public_subnets  = var.vpc_public_subnet
+  private_subnets = var.vpc_private_subnet
   enable_nat_gateway = true
   enable_vpn_gateway = true
   tags = var.vpc_tag
@@ -24,7 +25,8 @@ module "vpc" {
 
 module "ec2" {
     source = "../modules/ec2module"
-    subnet_id = module.vpc.public_subnets[0]
+    count = length(var.vpc_public_subnet)
+    subnet_id = module.vpc.public_subnets[count.index]
     sg_id = module.securitygroup.id
     aws_kp_name = var.aws_kp_name
     pk_filepath = var.pk_filepath
@@ -41,17 +43,17 @@ module "securitygroup" {
 
 module "ebs" {
   source = "../modules/ebsmodule"
-
+  count = 3
   size = var.additional_ebs_size
-  availability_zone = module.ec2.availability_zone
-  instance_id = module.ec2.instance_id
-  public_ip = module.pubip.public_ip
+  availability_zone = module.ec2[count.index].availability_zone
+  instance_id = module.ec2[count.index].instance_id
+  public_ip = module.ec2[count.index].public_ip
   pk_filepath = var.pk_filepath
   provisioner_script = var.ebs_provisioner_script
 }
 
-module "pubip" {
+/*module "pubip" {
   source = "../modules/pubipmodule"
-
-  instance_id = module.ec2.instance_id
-}
+  count = 3
+  instance_id = module.ec2[count.index].instance_id
+}*/

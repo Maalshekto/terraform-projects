@@ -1,10 +1,14 @@
+data "aws_caller_identity" "current" {
+  
+}
+
 data "aws_ami" "app_ami" {
   most_recent = true
-  owners = ["amazon"]
+  owners = [data.aws_caller_identity.current.account_id]
   
   filter {
     name = "name"
-    values = ["ubuntu-bionic-*"]
+    values = ["nginx-BASE-*"]
   } 
 }
 
@@ -13,18 +17,6 @@ resource "aws_instance" "myec2" {
   instance_type = var.instancetype
   key_name      = var.aws_kp_name
   subnet_id = var.subnet_id
-
-  provisioner "remote-exec" { 
-      script = var.provisioner_script
-
-      connection {
-        type = "ssh"
-        agent = false
-        user = "ubuntu"
-        private_key = file(var.pk_filepath)
-        host = aws_instance.myec2.public_ip
-      }
-  }
 
   root_block_device {
     delete_on_termination = true
